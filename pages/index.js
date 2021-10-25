@@ -1,12 +1,14 @@
 import Head from 'next/head';
 import React from 'react';
 import styled from 'styled-components';
+
 const Main = styled.main`
   display: grid;
   width: 100vw;
   height: 100vh;
   place-items: center;
   align-content: center;
+  transform: rotate(1deg);
 `;
 
 const Home = () => {
@@ -20,6 +22,7 @@ const Home = () => {
 
       <Main>
         <h1>Mikael och Fredrika</h1>
+        <h2>2022-07-09</h2>
       </Main>
     </div>
   );
