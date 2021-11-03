@@ -8,7 +8,6 @@ const Main = styled.main`
   height: 100vh;
   place-items: center;
   align-content: center;
-  transform: rotate(1deg);
 `;
 
 const Home = () => {
