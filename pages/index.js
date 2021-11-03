@@ -8,6 +8,7 @@ const Main = styled.main`
   height: 100vh;
   place-items: center;
   align-content: center;
+  text-align: center;
 `;
 
 const Home = () => {
@@ -22,6 +23,10 @@ const Home = () => {
       <Main>
         <h1>Mikael och Fredrika</h1>
         <h2>2022-07-09</h2>
+        <div>
+          <h3>Wij Trädgårdar</h3>
+          <p>Wijberget 2, 816 30 Ockelbo</p>
+        </div>
       </Main>
     </div>
   );
