@@ -1,7 +1,7 @@
 import { HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
-  Button,
   Heading,
+  IconButton,
   ListItem,
   UnorderedList,
   useColorMode,
@@ -13,6 +13,9 @@ import styled from 'styled-components';
 const ContentWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  main {
+    padding: 24px;
+  }
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
   }
@@ -22,12 +25,12 @@ const ImageWrapper = styled.div`
   background-color: ${({ theme }) => `${theme.textColor}4d`};
   display: grid;
   place-items: center;
-  @media (max-width: 767px) {
-    height: 100vw;
-  }
 `;
 
 const PageWrapper = styled.div`
+  @media (max-width: 767px) {
+    padding-top: 40px;
+  }
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -35,6 +38,7 @@ const PageWrapper = styled.div`
 
 const Nav = styled.nav`
   position: relative;
+
   ul {
     list-style: none;
     display: grid;
@@ -57,19 +61,21 @@ const Header = styled.div`
   text-align: center;
 `;
 
-const StyledButton = styled(Button)`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-
-const MenuButton = styled(StyledButton)`
+const MenuButton = styled(IconButton)`
   display: none;
   @media (max-width: 767px) {
     display: block;
   }
 `;
 
+const ButtonWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  top: 0;
+  right: 0;
+`;
+
+const PageHeader = styled.div``;
 const Page = ({ children }) => {
   var wedding = new Date('2022-07-09');
   var now = new Date();
@@ -88,39 +94,54 @@ const Page = ({ children }) => {
         <meta name="description" content="Mikael och Fredrika Bröllop" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <StyledButton variant="ghost" onClick={toggleColorMode}>
-        {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-      </StyledButton>
+      <ButtonWrapper>
+        <IconButton
+          variant="ghost"
+          onClick={toggleColorMode}
+          icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+        />
+        <MenuButton
+          variant="ghost"
+          onClick={() => setOpen(!open)}
+          icon={<HamburgerIcon />}
+        />
+      </ButtonWrapper>
 
       <Header>
-        <div>
+        <PageHeader>
           <Heading as="h1">Mikael och Fredrika</Heading>
           <div>
             <Heading as="h2" size="md">
               2022-07-09 | Wij Trädgårdar, Ockelbo
             </Heading>
           </div>
-        </div>
+        </PageHeader>
         <Nav open={open}>
-          <MenuButton variant="ghost" onClick={() => setOpen(!open)}>
-            <HamburgerIcon boxSize="2em" />
-          </MenuButton>
           <UnorderedList>
             <ListItem>
-              <Link href="/">HEM</Link>
+              <Link href="/">
+                <a onClick={() => setOpen(false)}>HEM</a>
+              </Link>
             </ListItem>
             <ListItem>
-              <Link href="/rsvp">RSVP</Link>
+              <Link href="/rsvp">
+                <a onClick={() => setOpen(false)}>RSVP</a>
+              </Link>
             </ListItem>
             <ListItem>
-              <Link href="/details">DETALJER</Link>
+              <Link href="/details">
+                <a onClick={() => setOpen(false)}>DETALJER</a>
+              </Link>
             </ListItem>
             <ListItem>
-              <Link href="/information">INFORMATION</Link>
+              <Link href="/information">
+                <a onClick={() => setOpen(false)}>INFORMATION</a>
+              </Link>
             </ListItem>
             <ListItem>
-              <Link href="/gallery">BILDGALLERI</Link>
+              <Link href="/gallery">
+                <a onClick={() => setOpen(false)}>BILDGALLERI</a>
+              </Link>
             </ListItem>
           </UnorderedList>
         </Nav>

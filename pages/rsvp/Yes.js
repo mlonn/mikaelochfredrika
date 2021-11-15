@@ -4,7 +4,9 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-const AlleryWrapper = styled(CheckboxGroup)`
+import { Form } from './RSVP';
+
+const AllergyWrapper = styled.div`
   display: grid;
   grid-gap: 16px;
   grid-template-columns: 1fr 1fr;
@@ -30,7 +32,7 @@ const Yes = () => {
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <h3>Vad kul att du kommer! Då behöver vi lite mer information om dig:</h3>
       <label>Namn</label>
       <Input
@@ -53,26 +55,28 @@ const Yes = () => {
       {errors.email && errors.email.message}
 
       <label>Allergier & preferenser:</label>
-      <AlleryWrapper>
-        <Checkbox {...register('allergier')} value="Baljväxter">
-          Baljväxter
-        </Checkbox>
-        <Checkbox {...register('allergier')} value="Gluten">
-          Gluten
-        </Checkbox>
-        <Checkbox {...register('allergier')} value="Vegan">
-          Vegan
-        </Checkbox>
-        <Checkbox {...register('allergier')} value="Laktos">
-          Laktos
-        </Checkbox>
-        <Checkbox {...register('allergier')} value="Ägg">
-          Ägg
-        </Checkbox>
-        <Checkbox {...register('allergier')} value="Vegetarian">
-          Vegetarian
-        </Checkbox>
-      </AlleryWrapper>
+      <CheckboxGroup>
+        <AllergyWrapper>
+          <Checkbox {...register('allergier')} value="Baljväxter">
+            Baljväxter
+          </Checkbox>
+          <Checkbox {...register('allergier')} value="Gluten">
+            Gluten
+          </Checkbox>
+          <Checkbox {...register('allergier')} value="Vegan">
+            Vegan
+          </Checkbox>
+          <Checkbox {...register('allergier')} value="Laktos">
+            Laktos
+          </Checkbox>
+          <Checkbox {...register('allergier')} value="Ägg">
+            Ägg
+          </Checkbox>
+          <Checkbox {...register('allergier')} value="Vegetarian">
+            Vegetarian
+          </Checkbox>
+        </AllergyWrapper>
+      </CheckboxGroup>
       <label>Annat</label>
       <Input {...register('allergier-other')} />
       <p>
@@ -81,7 +85,7 @@ const Yes = () => {
         ändras
       </p>
       <Button type="submit">Skicka in mitt svar!</Button>
-    </form>
+    </Form>
   );
 };
 

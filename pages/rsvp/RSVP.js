@@ -1,12 +1,24 @@
 import { Checkbox, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import No from './No';
 import Yes from './Yes';
+
+export const Form = styled.form`
+  display: grid;
+  grid-gap: 12px;
+`;
+
+const StyledRSVP = styled.div`
+  display: grid;
+  grid-gap: 12px;
+`;
+
 const RSVP = () => {
   const [attend, setAttend] = useState();
 
   return (
-    <div>
+    <StyledRSVP>
       <h1>RSVP</h1>
       <h2>répondez s’il vous plaît</h2>
       <h3>Kommer du att delta under vårat bröllop?</h3>
@@ -39,7 +51,7 @@ const RSVP = () => {
       </VStack>
       {attend && <Yes />}
       {attend === false && <No />}
-    </div>
+    </StyledRSVP>
   );
 };
 
