@@ -1,34 +1,53 @@
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Button, Heading, useColorMode } from '@chakra-ui/react';
+import { HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import {
+  Button,
+  Heading,
+  ListItem,
+  UnorderedList,
+  useColorMode,
+} from '@chakra-ui/react';
 import Head from 'next/head';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 const ContentWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const ImageWrapper = styled.div`
   background-color: ${({ theme }) => `${theme.textColor}4d`};
   display: grid;
   place-items: center;
+  @media (max-width: 767px) {
+    height: 100vw;
+  }
 `;
 
 const PageWrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
 `;
 
 const Nav = styled.nav`
-  font-family: Rosella;
+  position: relative;
   ul {
     list-style: none;
     display: grid;
+    margin-inline-start: none;
     grid-gap: 24px;
     font-size: 24px;
     grid-auto-flow: column;
+    @media (max-width: 767px) {
+      grid-auto-flow: row;
+      grid-gap: 12px;
+      ${({ open }) => (open ? '' : 'display: none;')}
+      transition: all 0.3s linear;
+    }
   }
 `;
 
@@ -36,14 +55,19 @@ const Header = styled.div`
   display: grid;
   place-content: center;
   text-align: center;
-  h1 {
-  }
 `;
 
-const DarkModeButton = styled(Button)`
+const StyledButton = styled(Button)`
   position: absolute;
   top: 0;
   right: 0;
+`;
+
+const MenuButton = styled(StyledButton)`
+  display: none;
+  @media (max-width: 767px) {
+    display: block;
+  }
 `;
 
 const Page = ({ children }) => {
@@ -56,6 +80,7 @@ const Page = ({ children }) => {
   // To calculate the no. of days between two dates
   var days = Math.ceil(time / (1000 * 3600 * 24));
   const { colorMode, toggleColorMode } = useColorMode();
+  const [open, setOpen] = useState(false);
   return (
     <PageWrapper>
       <Head>
@@ -64,9 +89,9 @@ const Page = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <DarkModeButton variant="ghost" onClick={toggleColorMode}>
+      <StyledButton variant="ghost" onClick={toggleColorMode}>
         {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-      </DarkModeButton>
+      </StyledButton>
 
       <Header>
         <div>
@@ -77,24 +102,27 @@ const Page = ({ children }) => {
             </Heading>
           </div>
         </div>
-        <Nav>
-          <ul>
-            <li>
+        <Nav open={open}>
+          <MenuButton variant="ghost" onClick={() => setOpen(!open)}>
+            <HamburgerIcon boxSize="2em" />
+          </MenuButton>
+          <UnorderedList>
+            <ListItem>
               <Link href="/">HEM</Link>
-            </li>
-            <li>
+            </ListItem>
+            <ListItem>
               <Link href="/rsvp">RSVP</Link>
-            </li>
-            <li>
+            </ListItem>
+            <ListItem>
               <Link href="/details">DETALJER</Link>
-            </li>
-            <li>
+            </ListItem>
+            <ListItem>
               <Link href="/information">INFORMATION</Link>
-            </li>
-            <li>
+            </ListItem>
+            <ListItem>
               <Link href="/gallery">BILDGALLERI</Link>
-            </li>
-          </ul>
+            </ListItem>
+          </UnorderedList>
         </Nav>
       </Header>
       <ContentWrapper>
