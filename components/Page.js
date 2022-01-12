@@ -6,6 +6,7 @@ import {
   UnorderedList,
   useColorMode,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -35,17 +36,23 @@ const PageWrapper = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
 `;
-
+const Wrapper = styled.div`
+  background: ${({ theme }) => `${theme.colors.textColor}25`};
+  display: grid;
+  justify-items: center;
+  width: 100vw;
+`;
 const Nav = styled.nav`
   position: relative;
 
   ul {
     list-style: none;
     display: grid;
-    margin-inline-start: none;
+    margin-inline-start: 0;
     grid-gap: 24px;
     font-size: 24px;
     grid-auto-flow: column;
+
     @media (max-width: 767px) {
       grid-auto-flow: row;
       grid-gap: 12px;
@@ -56,6 +63,7 @@ const Nav = styled.nav`
 `;
 
 const Header = styled.div`
+  font-family: 'rosella-engraved';
   display: grid;
   place-content: center;
   text-align: center;
@@ -75,17 +83,31 @@ const ButtonWrapper = styled.div`
   right: 0;
 `;
 
-const PageHeader = styled.div``;
+const PageHeader = styled.div`
+  margin: 46px;
+`;
+
+const SubHeading = styled(Heading)`
+  font-family: 'rosella-engraved';
+  color: ${({ theme }) => theme.colors.brown};
+`;
+
+const NavLink = styled.a`
+  font-weight: ${({ active }) => (active ? 'bold' : 'normal')};
+  text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
+`;
+
 const Page = ({ children }) => {
-  var wedding = new Date('2022-07-09');
-  var now = new Date();
+  const router = useRouter();
+  const wedding = new Date('2022-07-09');
+  const now = new Date();
 
   // To calculate the time difference of two dates
-  var time = wedding.getTime() - now.getTime();
+  const time = wedding.getTime() - now.getTime();
 
   // To calculate the no. of days between two dates
-  var days = Math.ceil(time / (1000 * 3600 * 24));
-  const { colorMode, toggleColorMode } = useColorMode();
+  const days = Math.ceil(time / (1000 * 3600 * 24));
+
   const [open, setOpen] = useState(false);
   return (
     <PageWrapper>
@@ -95,11 +117,6 @@ const Page = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ButtonWrapper>
-        <IconButton
-          variant="ghost"
-          onClick={toggleColorMode}
-          icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-        />
         <MenuButton
           variant="ghost"
           onClick={() => setOpen(!open)}
@@ -109,42 +126,66 @@ const Page = ({ children }) => {
 
       <Header>
         <PageHeader>
-          <Heading as="h1">Mikael och Fredrika</Heading>
+          <Heading size="4xl">Mikael och Fredrika</Heading>
           <div>
-            <Heading as="h2" size="md">
+            <SubHeading size="lg">
               2022-07-09 | Wij Trädgårdar, Ockelbo
-            </Heading>
+            </SubHeading>
           </div>
         </PageHeader>
-        <Nav open={open}>
-          <UnorderedList>
-            <ListItem>
-              <Link href="/">
-                <a onClick={() => setOpen(false)}>HEM</a>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link href="/rsvp">
-                <a onClick={() => setOpen(false)}>RSVP</a>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link href="/details">
-                <a onClick={() => setOpen(false)}>DETALJER</a>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link href="/information">
-                <a onClick={() => setOpen(false)}>INFORMATION</a>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link href="/gallery">
-                <a onClick={() => setOpen(false)}>BILDGALLERI</a>
-              </Link>
-            </ListItem>
-          </UnorderedList>
-        </Nav>
+        <Wrapper>
+          <Nav open={open}>
+            <UnorderedList>
+              <ListItem>
+                <Link passHref href="/">
+                  <NavLink
+                    active={router.pathname === ''}
+                    onClick={() => setOpen(false)}
+                  >
+                    HEM
+                  </NavLink>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link passHref href="/rsvp">
+                  <NavLink
+                    active={router.pathname === '/rsvp'}
+                    onClick={() => setOpen(false)}
+                  >
+                    R.S.V.P.
+                  </NavLink>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link passHref href="/details">
+                  <NavLink
+                    active={router.pathname === '/details'}
+                    onClick={() => setOpen(false)}
+                  >
+                    DETALJER
+                  </NavLink>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link passHref href="/information">
+                  <NavLink
+                    active={router.pathname === '/information'}
+                    onClick={() => setOpen(false)}
+                  >
+                    INFORMATION
+                  </NavLink>
+                </Link>
+              </ListItem>
+              {/* enable when gallery is ready
+              <ListItem>
+                <Link href="/gallery">
+                  <a onClick={() => setOpen(false)}>BILDGALLERI</a>
+                </Link>
+              </ListItem>
+            */}
+            </UnorderedList>
+          </Nav>
+        </Wrapper>
       </Header>
       <ContentWrapper>
         <main>{children}</main>
