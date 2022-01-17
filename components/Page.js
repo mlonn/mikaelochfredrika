@@ -11,10 +11,12 @@ import {
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import hleft from '../public/assets/Header_left.png';
 import logo from '../public/assets/MF_logo.png';
+import home from '../public/assets/MF_home.jpg';
+import wij from '../public/assets/Wij_Page.png';
 import hright from '../public/assets/Header_right.png';
 
 const ContentWrapper = styled.div`
@@ -31,7 +33,28 @@ const ContentWrapper = styled.div`
 const ImageWrapper = styled.div`
   background-color: ${({ theme }) => `${theme.textColor}4d`};
   display: grid;
-  place-items: center;
+  place-items: end;
+  position: relative;
+  min-height: 350px;
+`;
+
+const ImageContainer = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+`;
+
+const DayHeader = styled(Heading)`
+  font-family: 'rosella-engraved';
+  background: ${({ theme }) => theme.colors.green};
+  color: white;
+  width: 100%;
+  text-align: center;
+  font-size: 40px;
+  line-height: 63px;
+  margin-bottom: 150px;
+  align-self: bottom;
 `;
 
 const PageWrapper = styled.div`
@@ -138,6 +161,7 @@ const Page = ({ children }) => {
   const router = useRouter();
   const wedding = new Date('2022-07-09');
   const now = new Date();
+  const [sideImage, setSideImage] = useState(home);
 
   // To calculate the time difference of two dates
   const time = wedding.getTime() - now.getTime();
@@ -146,6 +170,14 @@ const Page = ({ children }) => {
   const days = Math.ceil(time / (1000 * 3600 * 24));
 
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (router.pathname === '/details') {
+      setSideImage(wij);
+    } else {
+      setSideImage(home);
+    }
+  }, [router.pathname]);
   return (
     <PageWrapper>
       <Head>
@@ -253,7 +285,16 @@ const Page = ({ children }) => {
       <ContentWrapper>
         <main>{children}</main>
         <ImageWrapper>
-          <div>{`${days} DAGAR KVAR!`}</div>
+          <ImageContainer>
+            <Image
+              layout="fill"
+              objectFit="cover"
+              objectPosition="30% 20%"
+              src={sideImage}
+              alt=""
+            ></Image>
+          </ImageContainer>
+          <DayHeader>{`${days} DAGAR KVAR!`}</DayHeader>
         </ImageWrapper>
       </ContentWrapper>
     </PageWrapper>
