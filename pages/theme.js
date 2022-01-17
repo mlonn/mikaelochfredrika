@@ -20,5 +20,4 @@ const config = {
 
 // 3. extend the theme
 const theme = extendTheme(config);
-console.log(theme);
 export default theme;
