@@ -1,16 +1,22 @@
 import { HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import Image from 'next/image';
 import {
   Heading,
   IconButton,
   ListItem,
   UnorderedList,
   useColorMode,
+  Flex,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import hleft from '../public/assets/Header_left.png';
+import logo from '../public/assets/MF_logo.png';
+import hright from '../public/assets/Header_right.png';
+
 const ContentWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -84,7 +90,18 @@ const ButtonWrapper = styled.div`
 `;
 
 const PageHeader = styled.div`
-  margin: 46px;
+  position: relative;
+  display: grid;
+  grid-gap: 20px;
+  padding: 46px;
+`;
+const CenterContent = styled.div`
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: min-content auto;
 `;
 
 const SubHeading = styled(Heading)`
@@ -97,6 +114,26 @@ const NavLink = styled.a`
   text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
 `;
 
+const LeftImage = styled.div`
+  @media (max-width: 1155px) {
+    display: none;
+  }
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+`;
+const RightImage = styled.div`
+  @media (max-width: 1155px) {
+    display: none;
+  }
+  position: absolute;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  right: 0;
+  top: 0;
+`;
 const Page = ({ children }) => {
   const router = useRouter();
   const wedding = new Date('2022-07-09');
@@ -126,12 +163,38 @@ const Page = ({ children }) => {
 
       <Header>
         <PageHeader>
-          <Heading size="4xl">Mikael och Fredrika</Heading>
-          <div>
-            <SubHeading size="lg">
-              2022-07-09 | Wij Trädgårdar, Ockelbo
-            </SubHeading>
-          </div>
+          <RightImage>
+            <Image
+              objectPosition="right top"
+              layout="fill"
+              objectFit="contain"
+              src={hright}
+              alt=""
+            />
+          </RightImage>
+          <CenterContent>
+            <Heading size="4xl">Mikael och Fredrika</Heading>
+            <Image
+              object-fit="contain"
+              width={94}
+              height={94}
+              layout="fixed"
+              src={logo}
+              alt=""
+            />
+          </CenterContent>
+          <LeftImage>
+            <Image
+              objectPosition="left top"
+              layout="fill"
+              objectFit="contain"
+              src={hleft}
+              alt=""
+            />
+          </LeftImage>
+          <SubHeading size="lg">
+            2022-07-09 | Wij Trädgårdar, Ockelbo
+          </SubHeading>
         </PageHeader>
         <Wrapper>
           <Nav open={open}>
