@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProvider } from 'styled-components';
 import Page from '../components/Page';
 import { GlobalStyle } from '../styles/globalStyles';
-import theme from './theme';
+import theme from '../styles/theme';
 function MyApp({ Component, pageProps }) {
   return (
     <>
