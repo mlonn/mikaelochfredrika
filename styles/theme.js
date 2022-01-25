@@ -11,6 +11,14 @@ const config = {
     green: '#BFD3C4',
     grey: '#707070',
   },
+  components: {
+    Checkbox: {
+      baseStyle: {
+        borderColor: '#605242',
+        background: '#605242',
+      },
+    },
+  },
   config: { initialColorMode: 'light', useSystemColorMode: false },
   fonts: {
     heading: 'tangier',

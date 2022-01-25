@@ -5,9 +5,9 @@ html,
 body {
   padding: 0;
   margin: 0;
-  color: #707070;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  color: #605242;
+  font-family: 'Mrs Eaves XL Serif Nar OT';
+  font-size:20px;
 }
 
 a {
@@ -19,4 +19,7 @@ a {
   box-sizing: border-box;
 }
 
+p {
+  line-height:24px;
+}
 `;

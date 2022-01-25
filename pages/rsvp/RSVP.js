@@ -6,22 +6,24 @@ import Yes from './Yes';
 
 export const Form = styled.form`
   display: grid;
+  width: 100%;
   grid-gap: 12px;
-`;
-
-const StyledRSVP = styled.div`
-  display: grid;
-  grid-gap: 12px;
+  p {
+    font-size: 16px;
+    font-style: italic;
+  }
 `;
 
 const RSVP = () => {
   const [attend, setAttend] = useState();
 
   return (
-    <StyledRSVP>
-      <h1>RSVP</h1>
-      <h2>répondez s’il vous plaît</h2>
-      <h3>Kommer du att delta under vårat bröllop?</h3>
+    <>
+      <div>
+        <h3>RSVP</h3>
+        <h4>répondez s’il vous plaît</h4>
+        <h6>Kommer du att delta under vårat bröllop?</h6>
+      </div>
       <VStack align="stretch">
         <Checkbox
           isChecked={attend === true}
@@ -37,6 +39,8 @@ const RSVP = () => {
         </Checkbox>
 
         <Checkbox
+          color="#605242"
+          colorScheme="facebook"
           isChecked={attend === false}
           onChange={() => {
             if (attend === false) {
@@ -51,7 +55,7 @@ const RSVP = () => {
       </VStack>
       {attend && <Yes />}
       {attend === false && <No />}
-    </StyledRSVP>
+    </>
   );
 };
 

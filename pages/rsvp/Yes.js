@@ -33,7 +33,10 @@ const Yes = () => {
   };
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <h3>Vad kul att du kommer! Då behöver vi lite mer information om dig:</h3>
+      <h6>
+        <em>Vad kul att du kommer!</em>
+      </h6>
+      <h6>Då behöver vi lite mer information om dig:</h6>
       <label>Namn</label>
       <Input
         {...register('name', {

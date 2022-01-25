@@ -23,8 +23,36 @@ import hright from '../public/assets/Header_right.png';
 const ContentWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+
   main {
-    padding: 24px;
+    display: grid;
+    grid-gap: 24px;
+    justify-self: center;
+    grid-template-rows: min-content;
+    margin: 24px;
+    width: 100%;
+    max-width: 500px;
+    h3 {
+      font-family: 'rosella-engraved';
+      margin: 0;
+      font-size: 40px;
+    }
+    h4 {
+      font-family: 'tangier';
+      font-weight: 300;
+      margin-top: -24px;
+      font-size: 24px;
+      color: ${({ theme }) => theme.colors.brown};
+    }
+    h5 {
+      font-family: 'rosella-solid';
+      font-size: 24px;
+    }
+    h6 {
+      font-family: 'Mrs Eaves XL Serif Nar OT';
+      font-size: 20px;
+      font-weight: bold;
+    }
   }
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
@@ -32,7 +60,7 @@ const ContentWrapper = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  background-color: ${({ theme }) => `${theme.textColor}4d`};
+  background-color: ${({ theme }) => `${theme.colors.textColor}4d`};
   display: grid;
   place-items: end;
   position: relative;
@@ -82,10 +110,10 @@ const Nav = styled.nav`
     margin-inline-start: 0;
     grid-gap: 24px;
     font-size: 24px;
-    grid-auto-flow: column;
-
+    grid-template-columns: repeat(4, min-content);
+    justify-content: center;
     @media (max-width: 767px) {
-      grid-auto-flow: row;
+      grid-template-columns: 1fr;
       grid-gap: 12px;
       ${({ open }) => (open ? '' : 'display: none;')}
       transition: all 0.3s linear;
@@ -268,7 +296,7 @@ const Page = ({ children }) => {
               <ListItem>
                 <Link passHref href="/">
                   <NavLink
-                    active={router.pathname === ''}
+                    active={router.pathname === '/'}
                     onClick={() => setOpen(false)}
                   >
                     HEM
