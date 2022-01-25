@@ -8,6 +8,7 @@ import {
   useColorMode,
   Flex,
 } from '@chakra-ui/react';
+import ScaleText from 'react-scale-text';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -62,6 +63,7 @@ const PageWrapper = styled.div`
     padding-top: 40px;
   }
   min-height: 100vh;
+  width: 100vw;
   display: grid;
   grid-template-rows: auto 1fr;
 `;
@@ -73,7 +75,7 @@ const Wrapper = styled.div`
 `;
 const Nav = styled.nav`
   position: relative;
-
+  width: 100%;
   ul {
     list-style: none;
     display: grid;
@@ -100,6 +102,8 @@ const Header = styled.div`
 
 const MenuButton = styled(IconButton)`
   display: none;
+  position: absolute;
+  right: 0;
   @media (max-width: 767px) {
     display: block;
   }
@@ -107,6 +111,7 @@ const MenuButton = styled(IconButton)`
 
 const ButtonWrapper = styled.div`
   position: absolute;
+  width: 100vw;
   display: flex;
   top: 0;
   right: 0;
@@ -116,7 +121,7 @@ const PageHeader = styled.div`
   position: relative;
   display: grid;
   grid-gap: 20px;
-  padding: 46px;
+  padding: 46px 0;
 `;
 const CenterContent = styled.div`
   white-space: nowrap;
@@ -125,10 +130,33 @@ const CenterContent = styled.div`
   display: grid;
   grid-gap: 20px;
   grid-template-columns: min-content auto;
+  h1 {
+    font-size: 72px;
+    font-family: Tangier;
+    font-weight: bold;
+  }
+
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 56px;
+    }
+  }
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 42px;
+    }
+  }
 `;
 
-const SubHeading = styled(Heading)`
+const SubHeading = styled.h2`
   font-family: 'rosella-engraved';
+  font-size: 24px;
+  @media (max-width: 640px) {
+    font-size: 18px;
+  }
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
   color: ${({ theme }) => theme.colors.brown};
 `;
 
@@ -138,7 +166,7 @@ const NavLink = styled.a`
 `;
 
 const LeftImage = styled.div`
-  @media (max-width: 1155px) {
+  @media (max-width: 1220px) {
     display: none;
   }
   position: absolute;
@@ -147,7 +175,7 @@ const LeftImage = styled.div`
   width: 100%;
 `;
 const RightImage = styled.div`
-  @media (max-width: 1155px) {
+  @media (max-width: 1220px) {
     display: none;
   }
   position: absolute;
@@ -156,6 +184,12 @@ const RightImage = styled.div`
   width: 100%;
   right: 0;
   top: 0;
+`;
+
+const MFImage = styled.div`
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 const Page = ({ children }) => {
   const router = useRouter();
@@ -205,15 +239,17 @@ const Page = ({ children }) => {
             />
           </RightImage>
           <CenterContent>
-            <Heading size="4xl">Mikael och Fredrika</Heading>
-            <Image
-              object-fit="contain"
-              width={94}
-              height={94}
-              layout="fixed"
-              src={logo}
-              alt=""
-            />
+            <h1>Mikael och Fredrika</h1>
+            <MFImage>
+              <Image
+                object-fit="contain"
+                width={94}
+                height={94}
+                layout="fixed"
+                src={logo}
+                alt=""
+              />
+            </MFImage>
           </CenterContent>
           <LeftImage>
             <Image
@@ -224,9 +260,7 @@ const Page = ({ children }) => {
               alt=""
             />
           </LeftImage>
-          <SubHeading size="lg">
-            2022-07-09 | Wij Trädgårdar, Ockelbo
-          </SubHeading>
+          <SubHeading>2022-07-09 | Wij Trädgårdar, Ockelbo</SubHeading>
         </PageHeader>
         <Wrapper>
           <Nav open={open}>
