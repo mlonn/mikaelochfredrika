@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Input from '../../components/Input';
-//import Textarea from '../../components/Textarea';
+import Textarea from '../../components/Textarea';
 import { Controller, useForm } from 'react-hook-form';
 import { Form } from './RSVP';
 const No = () => {
@@ -38,16 +38,16 @@ const No = () => {
         glada tillrop här under!
       </h6>
       <label>Meddelande</label>
-      {/*       <Controller */}
-      {/*         control={control} */}
-      {/*         name="message" */}
-      {/*         rules={{ required: 'Fältet är obligatoriskt.' }} */}
-      {/*         render={({ */}
-      {/*           field: { onChange, onBlur, value, name, ref }, */}
-      {/*           fieldState: { invalid, isTouched, isDirty, error }, */}
-      {/*           formState, */}
-      {/*         }) => <Textarea onChange={onChange} value={value} />} */}
-      {/*       /> */}
+      <Controller
+        control={control}
+        name="message"
+        rules={{ required: 'Fältet är obligatoriskt.' }}
+        render={({
+          field: { onChange, onBlur, value, name, ref },
+          fieldState: { invalid, isTouched, isDirty, error },
+          formState,
+        }) => <Textarea onChange={onChange} value={value} />}
+      />
       {errors?.message?.message}
       <Button type="submit">Skicka mitt meddelande!</Button>
     </Form>
