@@ -1,19 +1,10 @@
-import { HamburgerIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import Image from 'next/image';
-import {
-  Heading,
-  IconButton,
-  ListItem,
-  UnorderedList,
-  useColorMode,
-  Flex,
-} from '@chakra-ui/react';
 import ScaleText from 'react-scale-text';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import hleft from '../public/assets/Header_left.png';
 import logo from '../public/assets/MF_logo.png';
 import home from '../public/assets/MF_home.jpg';
@@ -29,30 +20,10 @@ const ContentWrapper = styled.div`
     grid-gap: 24px;
     justify-self: center;
     grid-template-rows: min-content;
-    margin: 24px;
+    padding: 24px;
     width: 100%;
-    max-width: 500px;
-    h3 {
-      font-family: 'rosella-engraved';
-      margin: 0;
-      font-size: 40px;
-    }
-    h4 {
-      font-family: 'tangier';
-      font-weight: 300;
-      margin-top: -24px;
-      font-size: 24px;
-      color: ${({ theme }) => theme.colors.brown};
-    }
-    h5 {
-      font-family: 'rosella-solid';
-      font-size: 24px;
-    }
-    h6 {
-      font-family: 'Mrs Eaves XL Serif Nar OT';
-      font-size: 20px;
-      font-weight: bold;
-    }
+    max-width: 650px;
+    height: min-content;
   }
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
@@ -74,14 +45,13 @@ const ImageContainer = styled.div`
   z-index: -1;
 `;
 
-const DayHeader = styled(Heading)`
+const DayHeader = styled.h4`
   font-family: 'rosella-engraved';
   background: ${({ theme }) => theme.colors.green};
   color: white;
   width: 100%;
   text-align: center;
-  font-size: 40px;
-  line-height: 63px;
+  padding: 8px;
   margin-bottom: 150px;
   align-self: bottom;
 `;
@@ -119,6 +89,9 @@ const Nav = styled.nav`
       transition: all 0.3s linear;
     }
   }
+  li {
+    padding: 8px;
+  }
 `;
 
 const Header = styled.div`
@@ -128,10 +101,42 @@ const Header = styled.div`
   text-align: center;
 `;
 
-const MenuButton = styled(IconButton)`
+const MenuButton = styled.button`
   display: none;
   position: absolute;
-  right: 0;
+  background: transparent;
+  padding: 0;
+  border: none;
+  right: 6px;
+  .bar1,
+  .bar2,
+  .bar3 {
+    background-color: #333;
+    width: 35px;
+    height: 5px;
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+  ${({ open }) => {
+    if (open) {
+      return css`
+        .bar1 {
+          transform-origin: center;
+          transform: rotate(-45deg) translate(-9px, 6px);
+        }
+
+        .bar2 {
+          opacity: 0;
+        }
+
+        .bar3 {
+          transform-origin: center;
+          transform: rotate(45deg) translate(-8px, -8px);
+        }
+      `;
+    }
+  }}
+
   @media (max-width: 767px) {
     display: block;
   }
@@ -248,11 +253,11 @@ const Page = ({ children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ButtonWrapper>
-        <MenuButton
-          variant="ghost"
-          onClick={() => setOpen(!open)}
-          icon={<HamburgerIcon />}
-        />
+        <MenuButton open={open} onClick={() => setOpen(!open)}>
+          <div className="bar1"></div>
+          <div className="bar2"></div>
+          <div className="bar3"></div>
+        </MenuButton>
       </ButtonWrapper>
 
       <Header>
@@ -292,8 +297,8 @@ const Page = ({ children }) => {
         </PageHeader>
         <Wrapper>
           <Nav open={open}>
-            <UnorderedList>
-              <ListItem>
+            <ul>
+              <li>
                 <Link passHref href="/">
                   <NavLink
                     active={router.pathname === '/'}
@@ -302,8 +307,8 @@ const Page = ({ children }) => {
                     HEM
                   </NavLink>
                 </Link>
-              </ListItem>
-              <ListItem>
+              </li>
+              <li>
                 <Link passHref href="/rsvp">
                   <NavLink
                     active={router.pathname === '/rsvp'}
@@ -312,8 +317,8 @@ const Page = ({ children }) => {
                     R.S.V.P.
                   </NavLink>
                 </Link>
-              </ListItem>
-              <ListItem>
+              </li>
+              <li>
                 <Link passHref href="/details">
                   <NavLink
                     active={router.pathname === '/details'}
@@ -322,8 +327,8 @@ const Page = ({ children }) => {
                     DETALJER
                   </NavLink>
                 </Link>
-              </ListItem>
-              <ListItem>
+              </li>
+              <li>
                 <Link passHref href="/information">
                   <NavLink
                     active={router.pathname === '/information'}
@@ -332,15 +337,15 @@ const Page = ({ children }) => {
                     INFORMATION
                   </NavLink>
                 </Link>
-              </ListItem>
+              </li>
               {/* enable when gallery is ready
-              <ListItem>
+              <li>
                 <Link href="/gallery">
                   <a onClick={() => setOpen(false)}>BILDGALLERI</a>
                 </Link>
-              </ListItem>
+              </li>
             */}
-            </UnorderedList>
+            </ul>
           </Nav>
         </Wrapper>
       </Header>

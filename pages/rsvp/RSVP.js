@@ -1,11 +1,12 @@
-import { Checkbox, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import Checkbox from '../../components/Checkbox';
 import styled from 'styled-components';
 import No from './No';
 import Yes from './Yes';
 
 export const Form = styled.form`
   display: grid;
+  grid-template-rows: min-content;
   width: 100%;
   grid-gap: 12px;
   p {
@@ -24,9 +25,9 @@ const RSVP = () => {
         <h4>répondez s’il vous plaît</h4>
         <h6>Kommer du att delta under vårat bröllop?</h6>
       </div>
-      <VStack align="stretch">
+      <div>
         <Checkbox
-          isChecked={attend === true}
+          checked={attend === true}
           onChange={() => {
             if (attend) {
               setAttend(undefined);
@@ -39,9 +40,7 @@ const RSVP = () => {
         </Checkbox>
 
         <Checkbox
-          color="#605242"
-          colorScheme="facebook"
-          isChecked={attend === false}
+          checked={attend === false}
           onChange={() => {
             if (attend === false) {
               setAttend(undefined);
@@ -52,7 +51,7 @@ const RSVP = () => {
         >
           Kan tyvärr inte komma.
         </Checkbox>
-      </VStack>
+      </div>
       {attend && <Yes />}
       {attend === false && <No />}
     </>

@@ -1,10 +1,12 @@
-import { Button, Checkbox, CheckboxGroup, Input } from '@chakra-ui/react';
 import axios from 'axios';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { Form } from './RSVP';
+import Checkbox from '../../components/Checkbox';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 const AllergyWrapper = styled.div`
   display: grid;
@@ -58,7 +60,7 @@ const Yes = () => {
       {errors.email && errors.email.message}
 
       <label>Allergier & preferenser:</label>
-      <CheckboxGroup>
+      <div>
         <AllergyWrapper>
           <Checkbox {...register('allergier')} value="Baljväxter">
             Baljväxter
@@ -79,9 +81,9 @@ const Yes = () => {
             Vegetarian
           </Checkbox>
         </AllergyWrapper>
-      </CheckboxGroup>
+      </div>
       <label>Annat</label>
-      <Input {...register('allergier-other')} />
+      <Input type="text" {...register('allergier-other')} />
       <p>
         Vi tar in denna informationen för att kunna anpassa bröllopet efter våra
         gäster men också för att kunna skicka ut mer information om något skulle
