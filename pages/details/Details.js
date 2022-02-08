@@ -29,7 +29,7 @@ const Details = () => {
       <h6>Raggsocka Logis hemsida</h6>
 
       <a href="https://raggsockalogi.se" target="_blank" rel="noreferrer">
-        <em> www.raggsockalogi.se</em>
+        <em>www.raggsockalogi.se</em>
       </a>
       <p>
         I närheten finns också en Camping och ställplatser om man skulle ha

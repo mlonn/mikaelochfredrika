@@ -17,7 +17,7 @@
     "react-hook-form": "^7.18.1",
     "react-image-gallery": "^1.2.7",
     "react-scale-text": "^1.2.2",
-    "react-toastify": "^8.1.0",
+    "react-toastify": "7.0.4",
     "scale-text": "^0.2.2",
     "styled-components": "5.3.3"
   },

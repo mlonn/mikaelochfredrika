@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
@@ -14,6 +14,7 @@ const AllergyWrapper = styled.div`
   grid-template-columns: 1fr 1fr;
 `;
 const Yes = () => {
+  const [loading, setLoading] = useState(false);
   const {
     handleSubmit,
     control,
@@ -21,7 +22,7 @@ const Yes = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (values) => {
-    console.log(values);
+    setLoading(true);
     try {
       await axios({
         method: 'POST',
@@ -33,6 +34,7 @@ const Yes = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -90,7 +92,9 @@ const Yes = () => {
         gäster men också för att kunna skicka ut mer information om något skulle
         ändras
       </p>
-      <Button type="submit">Skicka in mitt svar!</Button>
+      <Button loading={true} type="submit">
+        <span>Skicka in mitt svar!</span>
+      </Button>
     </Form>
   );
 };

@@ -46,7 +46,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Mrs Eaves XL Serif Nar OT';
     font-size: 20px;
     }
-h3 {
+    h3 {
       font-family: 'rosella-engraved';
       margin: 0;
       font-size: 40px;
@@ -79,4 +79,15 @@ h3 {
   p {
     line-height: 24px;
   }
+  a em {
+   text-decoration:underline;
+  }
+  .Toastify__toast--success {
+          background: ${({ theme }) => theme.colors.green};
+          color: white;
+      }
+      .Toastify__toast--error {
+          background: ${({ theme }) => theme.colors.red};
+          color: white;
+      }
 `;

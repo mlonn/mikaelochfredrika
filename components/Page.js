@@ -36,6 +36,7 @@ const ImageWrapper = styled.div`
   place-items: end;
   position: relative;
   min-height: 350px;
+  max-height: min(calc(100vh - 308px), 770px);
 `;
 
 const ImageContainer = styled.div`
