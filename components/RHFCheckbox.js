@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import { useController, useForm } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
 const CheckboxWrapper = styled.div`
@@ -81,29 +82,37 @@ const Label = styled.span`
   margin-left: 12px;
 `;
 
-const Checkbox = (props, ref) => {
-  const { name, checked, onChange, children, className, ...rest } = props;
-
-  const changeValue = (event) => {
-    if (onChange) {
-      onChange(event);
-    }
-  };
+const Checkbox = ({ control, name, className, children }) => {
+  console.log(control);
+  const {
+    field: {
+      onChange,
+      onBlur,
+      name: internalName,
+      value,
+      ref,
+      checked,
+      ...rest
+    },
+  } = useController({
+    name,
+    control,
+    defaultValue: '',
+  });
+  console.log(checked, value, rest);
 
   return (
     <div className={className}>
-      <WrapperLabel htmlFor={name} selected={checked}>
+      <WrapperLabel htmlFor={internalName} selected={value}>
         <CheckboxWrapper>
           <HiddenCheckbox
-            id={name}
-            name={name}
-            checked={checked}
-            onChange={changeValue}
-            h
-            {...rest}
+            id={internalName}
+            name={internalName}
+            checked={value}
+            onChange={onChange}
             type="checkbox"
           />
-          <StyledCheckbox selected={checked} ref={ref}>
+          <StyledCheckbox selected={value} ref={ref}>
             <Icon data-testid="icon" viewBox="0 0 24 24">
               <polyline points="20 6 9 17 4 12" />
             </Icon>
@@ -115,4 +124,4 @@ const Checkbox = (props, ref) => {
   );
 };
 
-export default React.forwardRef(Checkbox);
+export default Checkbox;

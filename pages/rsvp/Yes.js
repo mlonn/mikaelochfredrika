@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { Form } from './RSVP';
-import Checkbox from '../../components/Checkbox';
+import Checkbox from '../../components/RHFCheckbox';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -16,6 +16,7 @@ const AllergyWrapper = styled.div`
 const Yes = () => {
   const {
     handleSubmit,
+    control,
     register,
     formState: { errors },
   } = useForm();
@@ -62,22 +63,22 @@ const Yes = () => {
       <label>Allergier & preferenser:</label>
       <div>
         <AllergyWrapper>
-          <Checkbox {...register('allergier')} value="Baljväxter">
+          <Checkbox control={control} name="allergier.Baljväxter">
             Baljväxter
           </Checkbox>
-          <Checkbox {...register('allergier')} value="Gluten">
+          <Checkbox control={control} name="allergier.Gluten">
             Gluten
           </Checkbox>
-          <Checkbox {...register('allergier')} value="Vegan">
+          <Checkbox control={control} name="allergier.Vegan">
             Vegan
           </Checkbox>
-          <Checkbox {...register('allergier')} value="Laktos">
+          <Checkbox control={control} name="allergier.Laktos">
             Laktos
           </Checkbox>
-          <Checkbox {...register('allergier')} value="Ägg">
+          <Checkbox control={control} name="allergier.Ägg">
             Ägg
           </Checkbox>
-          <Checkbox {...register('allergier')} value="Vegetarian">
+          <Checkbox control={control} name="allergier.Vegetarian">
             Vegetarian
           </Checkbox>
         </AllergyWrapper>
