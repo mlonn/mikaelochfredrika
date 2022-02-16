@@ -6,7 +6,7 @@ import Input from '../../components/Input';
 import Textarea from '../../components/Textarea';
 import { Controller, useForm } from 'react-hook-form';
 import { Form } from './RSVP';
-const No = () => {
+const No = ({ done }) => {
   const { handleSubmit, control, register, formState } = useForm();
   const { errors } = formState;
   const onSubmit = async (values) => {
@@ -19,6 +19,7 @@ const No = () => {
       });
 
       toast.success('Synd att du inte kan komma');
+      done();
     } catch (error) {
       console.log(error);
     }

@@ -13,8 +13,9 @@ const AllergyWrapper = styled.div`
   grid-gap: 16px;
   grid-template-columns: 1fr 1fr;
 `;
-const Yes = () => {
+const Yes = ({ done }) => {
   const [loading, setLoading] = useState(false);
+
   const {
     handleSubmit,
     control,
@@ -31,6 +32,7 @@ const Yes = () => {
       });
 
       toast.success('Tack! för att du vill komma!');
+      done();
     } catch (error) {
       console.log(error);
     }

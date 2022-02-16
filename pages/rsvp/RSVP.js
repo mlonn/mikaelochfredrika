@@ -17,43 +17,57 @@ export const Form = styled.form`
 
 const RSVP = () => {
   const [attend, setAttend] = useState();
+  const [hasAnswered, setHasAnswered] = useState();
 
   return (
     <>
       <div>
         <h3>RSVP</h3>
         <h4>répondez s’il vous plaît</h4>
-        <h6>Kommer du att delta under vårat bröllop?</h6>
       </div>
-      <div>
-        <Checkbox
-          checked={attend === true}
-          onChange={() => {
-            if (attend) {
-              setAttend(undefined);
-            } else {
-              setAttend(true);
-            }
-          }}
-        >
-          Ja, självklart!
-        </Checkbox>
+      {!hasAnswered ? (
+        <>
+          <h6>Kommer du att delta under vårat bröllop?</h6>
+          <div>
+            <Checkbox
+              checked={attend === true}
+              onChange={() => {
+                if (attend) {
+                  setAttend(undefined);
+                } else {
+                  setAttend(true);
+                }
+              }}
+            >
+              Ja, självklart!
+            </Checkbox>
 
-        <Checkbox
-          checked={attend === false}
-          onChange={() => {
-            if (attend === false) {
-              setAttend(undefined);
-            } else {
-              setAttend(false);
-            }
-          }}
-        >
-          Kan tyvärr inte komma.
-        </Checkbox>
-      </div>
-      {attend && <Yes />}
-      {attend === false && <No />}
+            <Checkbox
+              checked={attend === false}
+              onChange={() => {
+                if (attend === false) {
+                  setAttend(undefined);
+                } else {
+                  setAttend(false);
+                }
+              }}
+            >
+              Kan tyvärr inte komma.
+            </Checkbox>
+          </div>
+          {attend && <Yes done={() => setHasAnswered(true)} />}
+          {attend === false && <No done={() => setHasAnswered(true)} />}
+        </>
+      ) : (
+        <>
+          <h6>Ditt svar har skickats in!</h6>
+          {attend ? (
+            <h6>Kul att du vill komma, ses den 7:e juli!</h6>
+          ) : (
+            <h6>Synd att du inte kan komma</h6>
+          )}
+        </>
+      )}
     </>
   );
 };
