@@ -62,7 +62,7 @@ const RSVP = () => {
         <>
           <h6>Ditt svar har skickats in!</h6>
           {attend ? (
-            <h6>Kul att du vill komma, ses den 7:e juli!</h6>
+            <h6>Kul att du vill komma, ses den 9:e juli!</h6>
           ) : (
             <h6>Synd att du inte kan komma</h6>
           )}
