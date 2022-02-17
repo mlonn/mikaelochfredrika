@@ -5,11 +5,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
-import hleft from '../public/assets/Header_left.png';
 import logo from '../public/assets/MF_logo.png';
 import home from '../public/assets/MF_home.jpg';
 import wij from '../public/assets/Wij_Page.png';
+import hleft from '../public/assets/Header_left.png';
 import hright from '../public/assets/Header_right.png';
+import hmleft from '../public/assets/Mobile-Header_left.png';
+import hmright from '../public/assets/Mobile-Header_right.png';
 
 const ContentWrapper = styled.div`
   display: grid;
@@ -21,6 +23,7 @@ const ContentWrapper = styled.div`
     justify-self: center;
     grid-template-rows: min-content;
     padding: 24px;
+    padding-top: 12px;
     width: 100%;
     max-width: 650px;
     height: min-content;
@@ -58,9 +61,6 @@ const DayHeader = styled.h4`
 `;
 
 const PageWrapper = styled.div`
-  @media (max-width: 767px) {
-    padding-top: 40px;
-  }
   min-height: 100vh;
   width: 100vw;
   display: grid;
@@ -68,30 +68,121 @@ const PageWrapper = styled.div`
 `;
 const Wrapper = styled.div`
   background: ${({ theme }) => `${theme.colors.textColor}25`};
+  @media (max-width: 767px) {
+    background: white;
+  }
   display: grid;
   justify-items: center;
   width: 100vw;
 `;
 const Nav = styled.nav`
   position: relative;
-  width: 100%;
-  ul {
-    list-style: none;
-    display: grid;
-    margin-inline-start: 0;
-    grid-gap: 24px;
-    font-size: 24px;
-    grid-template-columns: repeat(4, min-content);
-    justify-content: center;
-    @media (max-width: 767px) {
-      grid-template-columns: 1fr;
-      grid-gap: 12px;
-      ${({ open }) => (open ? '' : 'display: none;')}
-      transition: all 0.3s linear;
-    }
+  padding: 8px;
+  background: ${({ theme }) => `${theme.colors.textColor}25`};
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  @media (max-width: 700px) {
+    justify-content: end;
   }
-  li {
-    padding: 8px;
+  width: 100%;
+  min-height: 40px;
+  .menu {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    list-style-type: none;
+    margin: 0;
+  }
+  .menu-button-container {
+    display: none;
+    height: 100%;
+    width: 30px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #menu-toggle {
+    display: none;
+  }
+
+  .menu-button,
+  .menu-button::before,
+  .menu-button::after {
+    display: block;
+    background-color: black;
+    position: absolute;
+    height: 4px;
+    width: 30px;
+    transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 2px;
+  }
+
+  .menu-button::before {
+    content: '';
+    margin-top: -8px;
+  }
+
+  .menu-button::after {
+    content: '';
+    margin-top: 8px;
+  }
+
+  #menu-toggle:checked + .menu-button-container .menu-button::before {
+    margin-top: 0px;
+    transform: rotate(45deg);
+  }
+
+  #menu-toggle:checked + .menu-button-container .menu-button {
+    background: rgba(255, 255, 255, 0);
+  }
+
+  #menu-toggle:checked + .menu-button-container .menu-button::after {
+    margin-top: 0px;
+    transform: rotate(-45deg);
+  }
+  .menu > li {
+    margin: 0 1rem;
+  }
+  @media (max-width: 700px) {
+    .menu-button-container {
+      display: flex;
+    }
+    .menu {
+      position: absolute;
+      top: 0;
+      margin-top: 40px;
+      left: 0;
+      flex-direction: column;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+    #menu-toggle ~ .menu li {
+      height: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 0px;
+      background: #e6e6e6;
+      transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    #menu-toggle:checked ~ .menu li {
+      height: 2.5em;
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      align-content: center;
+      font-size: inherit;
+      transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .menu > li {
+      display: flex;
+      justify-content: center;
+      padding: 0.5em 0;
+      width: 100%;
+    }
   }
 `;
 
@@ -104,7 +195,7 @@ const Header = styled.div`
 
 const MenuButton = styled.button`
   display: none;
-  position: absolute;
+  background: ${({ theme }) => `${theme.colors.textColor}25`};
   background: transparent;
   padding: 0;
   border: none;
@@ -118,25 +209,6 @@ const MenuButton = styled.button`
     margin: 6px 0;
     transition: 0.4s;
   }
-  ${({ open }) => {
-    if (open) {
-      return css`
-        .bar1 {
-          transform-origin: center;
-          transform: rotate(-45deg) translate(-9px, 6px);
-        }
-
-        .bar2 {
-          opacity: 0;
-        }
-
-        .bar3 {
-          transform-origin: center;
-          transform: rotate(45deg) translate(-8px, -8px);
-        }
-      `;
-    }
-  }}
 
   @media (max-width: 767px) {
     display: block;
@@ -144,10 +216,12 @@ const MenuButton = styled.button`
 `;
 
 const ButtonWrapper = styled.div`
-  position: absolute;
   width: 100vw;
   display: flex;
-  top: 0;
+  justify-content: end;
+  padding: 5px;
+  background: ${({ theme }) => `${theme.colors.textColor}25`};
+  z-index: 100;
   right: 0;
 `;
 
@@ -156,6 +230,10 @@ const PageHeader = styled.div`
   display: grid;
   grid-gap: 20px;
   padding: 46px 0;
+  @media (max-width: 767px) {
+    padding: 38px 0;
+    grid-gap: 8px;
+  }
 `;
 const CenterContent = styled.div`
   white-space: nowrap;
@@ -171,13 +249,9 @@ const CenterContent = styled.div`
   }
 
   @media (max-width: 640px) {
+    grid-template-columns: 1fr;
     h1 {
-      font-size: 56px;
-    }
-  }
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 42px;
+      font-size: 32px;
     }
   }
 `;
@@ -186,11 +260,9 @@ const SubHeading = styled.h2`
   font-family: 'rosella-engraved';
   font-size: 24px;
   @media (max-width: 640px) {
-    font-size: 18px;
+    font-size: 12px;
   }
-  @media (max-width: 480px) {
-    font-size: 16px;
-  }
+
   color: ${({ theme }) => theme.colors.brown};
 `;
 
@@ -218,6 +290,29 @@ const RightImage = styled.div`
   width: 100%;
   right: 0;
   top: 0;
+`;
+
+const LeftMobileImage = styled.div`
+  display: none;
+  @media (max-width: 767px) {
+    position: absolute;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    display: block;
+  }
+`;
+const RightMobileImage = styled.div`
+  display: none;
+  @media (max-width: 767px) {
+    position: absolute;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    right: 0;
+    top: 0;
+    display: block;
+  }
 `;
 
 const MFImage = styled.div`
@@ -253,16 +348,18 @@ const Page = ({ children }) => {
         <meta name="description" content="Mikael och Fredrika Bröllop" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ButtonWrapper>
-        <MenuButton open={open} onClick={() => setOpen(!open)}>
-          <div className="bar1"></div>
-          <div className="bar2"></div>
-          <div className="bar3"></div>
-        </MenuButton>
-      </ButtonWrapper>
 
       <Header>
         <PageHeader>
+          <RightMobileImage>
+            <Image
+              objectPosition="right top"
+              layout="fill"
+              objectFit="contain"
+              src={hmright}
+              alt=""
+            />
+          </RightMobileImage>
           <RightImage>
             <Image
               objectPosition="right top"
@@ -294,11 +391,24 @@ const Page = ({ children }) => {
               alt=""
             />
           </LeftImage>
+          <LeftMobileImage>
+            <Image
+              objectPosition="left top"
+              layout="fill"
+              objectFit="contain"
+              src={hmleft}
+              alt=""
+            />
+          </LeftMobileImage>
           <SubHeading>2022-07-09 | Wij Trädgårdar, Ockelbo</SubHeading>
         </PageHeader>
         <Wrapper>
           <Nav open={open}>
-            <ul>
+            <input id="menu-toggle" type="checkbox" />
+            <label className="menu-button-container" htmlFor="menu-toggle">
+              <div className="menu-button"></div>
+            </label>
+            <ul className="menu">
               <li>
                 <Link passHref href="/">
                   <NavLink

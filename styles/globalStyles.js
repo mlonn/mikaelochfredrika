@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
  html {
-    line-height: 1.5;
+
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -45,27 +45,41 @@ export const GlobalStyle = createGlobalStyle`
     color: #605242;
     font-family: 'Mrs Eaves XL Serif Nar OT';
     font-size: 20px;
-    }
+       @media (max-width: 640px) {
+        font-size: 16px;
+      }
+
     h3 {
       font-family: 'rosella-engraved';
       margin: 0;
       font-size: 40px;
+      @media (max-width: 640px) {
+        font-size: 30px;
+      }
     }
     h4 {
       font-family: 'tangier';
       font-weight: 300;
       margin-top: -24px;
       font-size: 24px;
+      @media (max-width: 640px) {
+          margin-top: -20px;
+          font-size: 20px;
+      }
       color: ${({ theme }) => theme.colors.brown};
     }
     h5 {
       font-family: 'rosella-solid';
       font-size: 24px;
+      @media (max-width: 640px) {
+          font-size: 18px;
+      }
     }
     h6 {
       font-family: 'Mrs Eaves XL Serif Nar OT';
       font-size: 20px;
       font-weight: bold;
+
     }
   a {
     color: inherit;
@@ -76,9 +90,7 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  p {
-    line-height: 24px;
-  }
+
   a em {
    text-decoration:underline;
   }

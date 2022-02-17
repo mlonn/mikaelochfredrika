@@ -35,7 +35,7 @@ const No = ({ done }) => {
       />
       {errors?.name?.message}
       <h6>
-        Om du vill får du gärna skicka in en hälsning lyckönskning eller andra
+        Om du vill får du gärna skicka in en hälsning/lyckönskning eller andra
         glada tillrop här under!
       </h6>
       <label>Meddelande</label>

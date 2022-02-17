@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Checkbox from '../../components/Checkbox';
+import Button from '../../components/Button';
 import styled from 'styled-components';
+import Link from 'next/link';
 import No from './No';
 import Yes from './Yes';
 
@@ -62,7 +64,12 @@ const RSVP = () => {
         <>
           <h6>Ditt svar har skickats in!</h6>
           {attend ? (
-            <h6>Kul att du vill komma, ses den 9:e juli!</h6>
+            <>
+              <h6>Kul att du vill komma, ses den 9:e juli!</h6>
+              <Link href="/details" passHref>
+                <Button>RSVP NU!</Button>
+              </Link>
+            </>
           ) : (
             <h6>Synd att du inte kan komma</h6>
           )}

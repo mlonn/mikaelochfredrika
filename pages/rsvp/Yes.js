@@ -64,8 +64,8 @@ const Yes = ({ done }) => {
       />
       {errors.email && errors.email.message}
 
-      <label>Allergier & preferenser:</label>
       <div>
+        <label>Allergier & preferenser:</label>
         <AllergyWrapper>
           <Checkbox control={control} name="allergier.Baljväxter">
             Baljväxter
@@ -87,8 +87,10 @@ const Yes = ({ done }) => {
           </Checkbox>
         </AllergyWrapper>
       </div>
+
       <label>Annat</label>
       <Input type="text" {...register('allergier-other')} />
+
       <p>
         Vi tar in denna informationen för att kunna anpassa bröllopet efter våra
         gäster men också för att kunna skicka ut mer information om något skulle
