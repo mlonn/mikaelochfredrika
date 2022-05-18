@@ -5,6 +5,7 @@ const theme = {
     brick: '#A4745F',
     brown: '#A99070',
     green: '#BFD3C4',
+    darkGreen: '#8DAB91',
     grey: '#707070',
   },
 };
