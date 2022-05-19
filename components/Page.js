@@ -37,7 +37,8 @@ const ImageWrapper = styled.div`
   background-color: ${({ theme }) => `${theme.colors.textColor}4d`};
   display: grid;
   place-items: end;
-  position: relative;
+  position: sticky;
+  top: 0;
   min-height: 350px;
   max-height: min(calc(100vh - 308px), 770px);
 `;
