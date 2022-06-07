@@ -2,16 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import photo from '../../public/assets/news_photo.jpeg';
+import sune from '../../public/assets/sune.png';
 
 const Post = styled.p`
   border: 1px solid ${({ theme }) => theme.colors.textColor};
   padding: 12px;
   display: grid;
   grid-gap: 12px;
-  div {
+  .image-left {
     width: 50%;
     float: left;
     margin-right: 12px;
+  }
+  .image-right {
+    width: 50%;
+    float: right;
+    margin-left: 12px;
   }
   a {
     color: ${({ theme }) => theme.colors.darkGreen};
@@ -33,12 +39,73 @@ const Information = () => {
       <h5>Senaste Anslagen</h5>
       <div>
         <PostHeading>
+          <h6>En månad kvar!</h6>
+          <em>2022-06-07</em>
+        </PostHeading>
+        <Post>
+          <p>
+            <b>
+              Nu är det bara 1 månad kvar tills vi (Mikael & Fredrika) gifter
+              oss! Och med er på plats för att ta del av vår stora dag!
+            </b>
+            <br />
+            <br />
+            <div>
+              <div className="image-right">
+                <Image src={sune} alt="" />
+              </div>
+              Vi tänkte informera om att om ni skulle vilja säga eller göra,
+              kanske till och med framföra, något under middagen och festen
+              efter vigseln så är ni fullt uppmuntrade till att göra så! Vår
+              eminenta toastmaster för kvällen kommer att vara vår fantastiska
+              kompis <b>Simon Sundström </b>och ni är mer än välkomna att höra
+              av er till honom om tal, framförande och dylikt. Ni kanske rentav
+              har en idé! Då är det bara att maila honom på{' '}
+              <a href="mailto:ssundstrom@live.se">ssundstrom@live.se</a>.
+            </div>
+            <br />
+            <br />
+            Det har också kommit till vår uppmärksamhet att dubbelrummen på{' '}
+            <b>Raggsocka Logi</b> tagit slut, det finns visst endast enkelrum
+            kvar! Men har ni inte bokat ännu, oroa er inte, det finns ett hotell
+            i Ockelbo också <b>900 meter</b> bort finns Ockelbo Baren, de verkar
+            fortfarande ha rum kvar om ni inte fixat något ännu!
+            <br />
+            <br />
+            <b>KOM IHÅG!</b> Jag gjorde ju ett misstag på inbjudningarna och
+            skrev att vigseln håller rum vid <b>14:00</b>, men tyvärr är detta{' '}
+            <b>FEL! Vigseln äger rum vid 16:00</b>, så kommer ni redan vid 14
+            får ni drifta runt länge själva, så kom till strax innan, vid{' '}
+            <b>15:30</b>
+            blir nog jättebra!
+            <br />
+            <br />
+            Några frågor har också kommit in om <b>klädkod</b>, och vi vill ju
+            att det skall vara ett uppklätt event, så kavaj och klänning är
+            uppskattat, men vi känner att vi kör på <b>“Sommarfin”</b> där ni är
+            uppklädda och sommarfina helt enkelt - skall bli så kul att se er
+            alla!
+            <br />
+            <br />
+            Vi har fått några frågor om presenter till bröllopet, men vi kan
+            säga här till er alla att vi inte vill ha några prylar, för saker
+            har vi redan! <b>Men</b>, vi tar gärna emot bröllopspresent i form
+            av
+            <em>“bidrag”</em> till vår bröllopsresa som vi planerar att ta i
+            höst. Man kan swisha en summa till oss och markera det som{' '}
+            <em>“bröllopspresent”</em>, t.ex. till Mikael på{' '}
+            <a href="tel:0707290829">0707290829</a>
+          </p>
+        </Post>
+      </div>
+      <div>
+        <PostHeading>
           <h6>Uppdatering</h6>
           <em>2022-05-06</em>
         </PostHeading>
         <Post>
           <p>
-            <div>
+            <div className="image-left">
               <Image src={photo} alt="" />
             </div>
             <b>
