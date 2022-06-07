@@ -19,6 +19,7 @@ const ContentWrapper = styled.div`
 
   main {
     display: grid;
+    overflow: auto;
     grid-gap: 24px;
     justify-self: center;
     grid-template-rows: min-content;
@@ -26,7 +27,7 @@ const ContentWrapper = styled.div`
     padding-top: 12px;
     width: 100%;
     max-width: 650px;
-    height: min-content;
+    max-height: calc(100vh - 298px);
   }
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
@@ -36,11 +37,10 @@ const ContentWrapper = styled.div`
 const ImageWrapper = styled.div`
   background-color: ${({ theme }) => `${theme.colors.textColor}4d`};
   display: grid;
+  position: relative;
   place-items: end;
-  position: sticky;
-  top: 0;
   min-height: 350px;
-  max-height: min(calc(100vh - 308px), 770px);
+  max-height: max-height: calc(100vh - 298px);
 `;
 
 const ImageContainer = styled.div`
@@ -188,6 +188,10 @@ const Nav = styled.nav`
 `;
 
 const Header = styled.div`
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
   font-family: 'rosella-engraved';
   display: grid;
   place-content: center;
