@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
- html {
+  html {
 
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;

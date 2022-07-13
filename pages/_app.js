@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <link rel="stylesheet" href="https://use.typekit.net/iaz7vbu.css" />
-
+        <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"/>
         <link
           rel="apple-touch-icon"
           sizes="180x180"

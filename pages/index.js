@@ -23,15 +23,7 @@ const Home = () => {
         Här kommer vi att ta in anmälningar till bröllopet så vi kan skala
         utefter alla som vill komma, samt ha som bildgalleri att minnas med för
         alltid.
-        <br />
-        <br />
-        Det blir en magisk dag, snälla kom, vi vill ha er där! Se till att RSVP
-        direkt! Klicka antingen på knappen härunder eller gå till fliken RSVP i
-        toppmenyn.
       </p>
-      <Link href="/rsvp" passHref>
-        <Button>RSVP NU!</Button>
-      </Link>
     </>
   );
 };

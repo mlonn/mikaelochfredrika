@@ -22,13 +22,14 @@ const ContentWrapper = styled.div`
     overflow: auto;
     grid-gap: 24px;
     justify-self: center;
-    grid-template-rows: min-content;
+    grid-auto-rows: min-content;
     padding: 24px;
     padding-top: 12px;
     width: 100%;
     max-width: 650px;
     max-height: calc(100vh - 298px);
   }
+
   @media (max-width: 767px) {
     grid-template-columns: 1fr;
   }
@@ -88,6 +89,7 @@ const Nav = styled.nav`
   }
   width: 100%;
   min-height: 40px;
+
   .menu {
     display: flex;
     justify-content: center;
@@ -95,6 +97,7 @@ const Nav = styled.nav`
     list-style-type: none;
     margin: 0;
   }
+
   .menu-button-container {
     display: none;
     height: 100%;
@@ -104,6 +107,7 @@ const Nav = styled.nav`
     justify-content: center;
     align-items: center;
   }
+
   #menu-toggle {
     display: none;
   }
@@ -143,13 +147,16 @@ const Nav = styled.nav`
     margin-top: 0px;
     transform: rotate(-45deg);
   }
+
   .menu > li {
     margin: 0 1rem;
   }
+
   @media (max-width: 700px) {
     .menu-button-container {
       display: flex;
     }
+
     .menu {
       position: absolute;
       top: 0;
@@ -160,6 +167,7 @@ const Nav = styled.nav`
       justify-content: center;
       align-items: center;
     }
+
     #menu-toggle ~ .menu li {
       height: 0;
       margin: 0;
@@ -169,6 +177,7 @@ const Nav = styled.nav`
       background: #e6e6e6;
       transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
     }
+
     #menu-toggle:checked ~ .menu li {
       height: 2.5em;
       display: flex;
@@ -178,6 +187,7 @@ const Nav = styled.nav`
       font-size: inherit;
       transition: height 400ms cubic-bezier(0.23, 1, 0.32, 1);
     }
+
     .menu > li {
       display: flex;
       justify-content: center;
@@ -205,6 +215,7 @@ const MenuButton = styled.button`
   padding: 0;
   border: none;
   right: 6px;
+
   .bar1,
   .bar2,
   .bar3 {
@@ -247,6 +258,7 @@ const CenterContent = styled.div`
   display: grid;
   grid-gap: 20px;
   grid-template-columns: min-content auto;
+
   h1 {
     font-size: 72px;
     font-family: Tangier;
@@ -424,16 +436,7 @@ const Page = ({ children }) => {
                   </NavLink>
                 </Link>
               </li>
-              <li>
-                <Link passHref href="/rsvp">
-                  <NavLink
-                    active={router.pathname === '/rsvp'}
-                    onClick={() => setOpen(false)}
-                  >
-                    R.S.V.P.
-                  </NavLink>
-                </Link>
-              </li>
+
               <li>
                 <Link passHref href="/details">
                   <NavLink
@@ -454,32 +457,39 @@ const Page = ({ children }) => {
                   </NavLink>
                 </Link>
               </li>
-              {/* enable when gallery is ready
+
               <li>
                 <Link href="/gallery">
-                  <a onClick={() => setOpen(false)}>BILDGALLERI</a>
+                  <NavLink
+                    active={router.pathname === '/gallery'}
+                    onClick={() => setOpen(false)}
+                  >
+                    BILDGALLERI
+                  </NavLink>
                 </Link>
               </li>
-            */}
             </ul>
           </Nav>
         </Wrapper>
       </Header>
-      <ContentWrapper>
-        <main>{children}</main>
-        <ImageWrapper>
-          <ImageContainer>
-            <Image
-              layout="fill"
-              objectFit="cover"
-              objectPosition="30% 20%"
-              src={sideImage}
-              alt=""
-            ></Image>
-          </ImageContainer>
-          <DayHeader>{`${days} DAGAR KVAR!`}</DayHeader>
-        </ImageWrapper>
-      </ContentWrapper>
+      {router.pathname === '/gallery' ? (
+        <>{children}</>
+      ) : (
+        <ContentWrapper>
+          <main>{children}</main>
+          <ImageWrapper>
+            <ImageContainer>
+              <Image
+                layout="fill"
+                objectFit="cover"
+                objectPosition="30% 20%"
+                src={sideImage}
+                alt=""
+              ></Image>
+            </ImageContainer>
+          </ImageWrapper>
+        </ContentWrapper>
+      )}
     </PageWrapper>
   );
 };
