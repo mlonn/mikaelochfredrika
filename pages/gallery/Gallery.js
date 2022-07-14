@@ -73,12 +73,11 @@ const Gallery = () => {
     cloudinary.openUploadWidget(
       { cloud_name: 'dzf3v5esf', upload_preset: 'b6a4rpip', tags: ['wedding'] },
       function (error, result) {
-        console.log(result);
+        setImages([...images, ...result]);
       }
     );
   }
 
-  console.log(images);
   const lightGallery = useRef(null);
   const onInit = useCallback((detail) => {
     if (detail) {
@@ -105,11 +104,10 @@ const Gallery = () => {
             const h = 200;
             const base =
               'https://res.cloudinary.com/dzf3v5esf/image/upload/q_auto';
-            const url = `${base}/${image.public_id}.jpg`;
+            const url = `${base}/${image.public_id}.${image.format}`;
             const thumbnail = `${base}/w_${Math.floor(w * 1.05)},h_${Math.floor(
               h * 1.05
-            )},c_fill/${image.public_id}.jpg`;
-            console.log(thumbnail, url);
+            )},c_fill/${image.public_id}.${image.format}`;
 
             return (
               <GalleryItem
