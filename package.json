@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^0.24.0",
+    "axios": "^1.6.3",
     "cloudinary-react": "^1.8.0",
     "framer-motion": "^4",
     "lightgallery": "^2.5.0",
