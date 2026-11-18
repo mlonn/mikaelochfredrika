@@ -19,10 +19,11 @@ const Home = () => {
         <br />
         <br />
         Så kul att ni kunde vara med och förgylla våran dag i Ockelbo när vi sa
-        ja och ble äkta makar. Nu kommer hemsidan agera som bildgalleri, och ett
-        vackert minne från denna dagen som vi aldrig vill glömma - så ge oss
-        alla bilder ni har! Ladda upp dem under fliken bildgalleri - tokiga som
-        fina, vi vill ha allt!
+        ja och ble äkta makar. Nu får hemsidan agera som bildgalleri, och ett
+        vackert minne från denna dagen som vi aldrig vill glömma. Under fliken
+        bildgalleri hittar ni alla bilder från vår fotograf Anna Lindström -
+        klicka på en bild för att se den i fullt format, eller ladda ner den
+        till er själva!
         <br />
         <br />
         <Button as={Link} href="/gallery">
