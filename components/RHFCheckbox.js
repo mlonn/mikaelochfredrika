@@ -83,7 +83,6 @@ const Label = styled.span`
 `;
 
 const Checkbox = ({ control, name, className, children }) => {
-  console.log(control);
   const {
     field: {
       onChange,
@@ -99,7 +98,6 @@ const Checkbox = ({ control, name, className, children }) => {
     control,
     defaultValue: '',
   });
-  console.log(checked, value, rest);
 
   return (
     <div className={className}>

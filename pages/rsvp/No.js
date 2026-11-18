@@ -10,7 +10,6 @@ const No = ({ done }) => {
   const { handleSubmit, control, register, formState } = useForm();
   const { errors } = formState;
   const onSubmit = async (values) => {
-    console.log(values);
     try {
       await axios({
         method: 'POST',
