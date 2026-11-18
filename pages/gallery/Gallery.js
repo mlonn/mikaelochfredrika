@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Button from '../../components/Button';
 import LightGallery from 'lightgallery/react';
 
 import 'lightgallery/css/lightgallery.css';
@@ -37,6 +36,8 @@ const GalleryItem = styled.a`
 const Img = styled.img`
   transition: all ease-in-out 0.2s;
   max-width: 100%;
+  height: 210px;
+  object-fit: cover;
   display: block;
 
   cursor: pointer;
@@ -52,31 +53,21 @@ const Img = styled.img`
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
+  const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const getImages = async () => {
       try {
-        const response = await fetch(
-          'https://res.cloudinary.com/dzf3v5esf/image/list/wedding.json'
-        );
-        const gottenImages = await response.json();
-
-        setImages(gottenImages.resources);
+        const response = await fetch('/api/images');
+        setImages(await response.json());
       } catch (e) {
         console.log(e);
+      } finally {
+        setLoaded(true);
       }
     };
 
     getImages();
   }, []);
-
-  function uploadWidget() {
-    cloudinary.openUploadWidget(
-      { cloud_name: 'dzf3v5esf', upload_preset: 'b6a4rpip', tags: ['wedding'] },
-      function (error, result) {
-        setImages([...images, ...result]);
-      }
-    );
-  }
 
   const lightGallery = useRef(null);
   const onInit = useCallback((detail) => {
@@ -85,13 +76,11 @@ const Gallery = () => {
     }
   }, []);
   useEffect(() => {
-    lightGallery.current.refresh();
+    lightGallery.current?.refresh();
   }, [images]);
   return (
     <StyledGallery>
-      <div>
-        <Button onClick={uploadWidget}>Ladda upp bilder!</Button>
-      </div>
+      {loaded && images.length === 0 && <h6>Inga bilder här ännu.</h6>}
       <div>
         <LightGallery
           className={'gallery'}
@@ -99,26 +88,17 @@ const Gallery = () => {
           speed={500}
           plugins={[lgZoom, lgThumbnail, lgHash]}
         >
-          {images.map((image) => {
-            const w = 300;
-            const h = 200;
-            const base =
-              'https://res.cloudinary.com/dzf3v5esf/image/upload/q_auto';
-            const url = `${base}/${image.public_id}.${image.format}`;
-            const thumbnail = `${base}/w_${Math.floor(w * 1.05)},h_${Math.floor(
-              h * 1.05
-            )},c_fill/${image.public_id}.${image.format}`;
-
-            return (
-              <GalleryItem
-                data-src={url}
-                data-sub-html={'<div></div>'}
-                key={image.public_id}
-              >
-                <Img alt={'img'} src={thumbnail} />
-              </GalleryItem>
-            );
-          })}
+          {images.map((image) => (
+            <GalleryItem
+              data-src={image.src}
+              data-thumb={image.thumbnail}
+              data-download-url={image.download}
+              data-sub-html={'<div></div>'}
+              key={image.id}
+            >
+              <Img alt={'img'} src={image.thumbnail} loading="lazy" />
+            </GalleryItem>
+          ))}
         </LightGallery>
       </div>
     </StyledGallery>

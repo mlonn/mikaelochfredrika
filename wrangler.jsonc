@@ -1,0 +1,35 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "brollop",
+	"main": "worker/index.js",
+	"compatibility_date": "2026-11-01",
+	// bröllop.losell.nu. Wrangler creates the DNS record and certificate on deploy
+	// as long as the losell.nu zone is in the same Cloudflare account.
+	"routes": [
+		{
+			"pattern": "xn--brllop-xxa.losell.nu",
+			"custom_domain": true
+		}
+	],
+	"assets": {
+		// Output of `next build && next export`
+		"directory": "./out",
+		"binding": "ASSETS",
+		"not_found_handling": "404-page",
+		"run_worker_first": [
+			"/api/*",
+			"/photos/*",
+			"/thumbs/*",
+			"/originals/*"
+		]
+	},
+	"r2_buckets": [
+		{
+			"binding": "PHOTOS",
+			"bucket_name": "brollop-photos"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+}
