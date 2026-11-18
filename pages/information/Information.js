@@ -21,7 +21,7 @@ const Post = styled.div`
   }
   .image-left img,
   .image-right img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
   }
   a {

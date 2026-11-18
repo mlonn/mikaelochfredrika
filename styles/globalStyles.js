@@ -2,6 +2,9 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   html {
+    /* Canvas colour only: body must stay transparent, because the page's side
+       images use z-index: -1 and would otherwise be painted under body. */
+    background: white;
 
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
@@ -42,7 +45,6 @@ export const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-    background: white;
     color: #605242;
     font-family: 'Mrs Eaves XL Serif Nar OT';
     font-size: 20px;
