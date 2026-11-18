@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import React from 'react';
+import { useController } from 'react-hook-form';
 import styled, { css } from 'styled-components';
 
 const CheckboxWrapper = styled.div`
@@ -32,8 +32,8 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
 `;
 
 const backgroundColor = css`
-  ${({ selected, theme }) => {
-    if (selected) {
+  ${({ $selected, theme }) => {
+    if ($selected) {
       return theme.colors.textColor;
     }
     return theme.colors.white;
@@ -41,8 +41,8 @@ const backgroundColor = css`
 `;
 
 const focusBorder = css`
-  ${({ selected, theme }) => {
-    if (selected) {
+  ${({ $selected, theme }) => {
+    if ($selected) {
       return theme.colors.textColor;
     }
     return theme.colors.grey500;
@@ -58,19 +58,17 @@ const StyledCheckbox = styled.div`
   place-items: center;
   transition: all 120ms;
   width: 20px;
-  ${HiddenCheckbox} {
-    :focus + & {
-      box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.textColor};
-    }
+  ${HiddenCheckbox}:focus-visible + & {
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.textColor};
   }
   ${Icon} {
-    visibility: ${(props) => (props.selected ? 'visible' : 'hidden')};
+    visibility: ${({ $selected }) => ($selected ? 'visible' : 'hidden')};
   }
 `;
 
 const WrapperLabel = styled.label`
   align-items: center;
-  cursor: 'pointer'
+  cursor: pointer;
   display: flex;
   &:hover ${StyledCheckbox} {
     box-shadow: 0 0 0 1px ${focusBorder};
@@ -84,15 +82,7 @@ const Label = styled.span`
 
 const Checkbox = ({ control, name, className, children }) => {
   const {
-    field: {
-      onChange,
-      onBlur,
-      name: internalName,
-      value,
-      ref,
-      checked,
-      ...rest
-    },
+    field: { onChange, name: internalName, value, ref },
   } = useController({
     name,
     control,
@@ -101,16 +91,17 @@ const Checkbox = ({ control, name, className, children }) => {
 
   return (
     <div className={className}>
-      <WrapperLabel htmlFor={internalName} selected={value}>
+      <WrapperLabel htmlFor={internalName} $selected={value}>
         <CheckboxWrapper>
           <HiddenCheckbox
             id={internalName}
             name={internalName}
-            checked={value}
+            checked={!!value}
             onChange={onChange}
+            ref={ref}
             type="checkbox"
           />
-          <StyledCheckbox selected={value} ref={ref}>
+          <StyledCheckbox $selected={value}>
             <Icon data-testid="icon" viewBox="0 0 24 24">
               <polyline points="20 6 9 17 4 12" />
             </Icon>

@@ -2,33 +2,31 @@
   "name": "mikaelochfredrika",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.18.1",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "preview": "yarn build && wrangler dev",
+    "lint": "eslint .",
     "upload-photos": "scripts/upload-photos.sh",
-    "lint": "next lint"
+    "format": "prettier --write ."
   },
   "dependencies": {
-    "axios": "^0.24.0",
-    "framer-motion": "^4",
-    "lightgallery": "^2.5.0",
-    "next": "12.3.4",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-hook-form": "^7.18.1",
-    "react-image-gallery": "^1.2.8",
-    "react-scale-text": "^1.2.2",
-    "react-toastify": "7.0.4",
-    "scale-text": "^0.2.2",
-    "styled-components": "5.3.3"
+    "@lightgallery/react": "^3.0.0",
+    "axios": "^1.21.1",
+    "lightgallery": "^3.0.0",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-hook-form": "^7.92.0",
+    "react-toastify": "^11.2.0",
+    "styled-components": "^6.6.0"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.13.3",
-    "eslint": "<8.0.0",
-    "eslint-config-next": "12.3.4",
-    "prettier": "^2.5.1",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.6",
+    "prettier": "^3.10.1",
+    "typescript": "~6.0.3",
     "wrangler": "^4.164.0"
   }
 }

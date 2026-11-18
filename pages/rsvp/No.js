@@ -42,11 +42,15 @@ const No = ({ done }) => {
         control={control}
         name="message"
         rules={{ required: 'Fältet är obligatoriskt.' }}
-        render={({
-          field: { onChange, onBlur, value, name, ref },
-          fieldState: { invalid, isTouched, isDirty, error },
-          formState,
-        }) => <Textarea onChange={onChange} value={value} />}
+        render={({ field: { onChange, onBlur, value, name, ref } }) => (
+          <Textarea
+            ref={ref}
+            name={name}
+            onChange={onChange}
+            onBlur={onBlur}
+            value={value ?? ''}
+          />
+        )}
       />
       {errors?.message?.message}
       <Button type="submit">Skicka mitt meddelande!</Button>

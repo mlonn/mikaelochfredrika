@@ -45,7 +45,7 @@ async function servePhoto(env, key, request) {
   return new Response(obj.body, { headers });
 }
 
-export default {
+const worker = {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = decodeURIComponent(url.pathname);
@@ -69,3 +69,5 @@ export default {
     return env.ASSETS.fetch(request);
   },
 };
+
+export default worker;

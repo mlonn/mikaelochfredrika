@@ -1,18 +1,16 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import LightGallery from 'lightgallery/react';
+import React, { useEffect, useState } from 'react';
+import { LightGallery, LightGalleryItem } from '@lightgallery/react';
+import Hash from '@lightgallery/react/plugins/hash';
+import Thumbnail from '@lightgallery/react/plugins/thumbnail';
+import Zoom from '@lightgallery/react/plugins/zoom';
+import styled from 'styled-components';
 
 import 'lightgallery/css/lightgallery.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-thumbnail.css';
 
-import lgHash from 'lightgallery/plugins/hash';
-import lgThumbnail from 'lightgallery/plugins/thumbnail';
-import lgZoom from 'lightgallery/plugins/zoom';
-import styled, { css } from 'styled-components';
-
 const StyledGallery = styled.div`
   max-width: 1280px;
-  display: grid;
   grid-auto-rows: min-content;
   width: 100%;
   justify-self: center;
@@ -20,17 +18,16 @@ const StyledGallery = styled.div`
   display: grid;
   padding: 24px;
   padding-top: 12px;
-
-  .lg-react-element {
-    display: flex;
-    flex-wrap: wrap;
-  }
 `;
 
-const GalleryItem = styled.a`
-  margin-right: 4px;
-  margin-bottom: 4px;
-  max-width: 100%;
+const Grid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  a {
+    max-width: 100%;
+  }
 `;
 
 const Img = styled.img`
@@ -42,7 +39,7 @@ const Img = styled.img`
 
   cursor: pointer;
 
-  :hover {
+  &:hover {
     transform: scale(1.05);
     transform: perspective(500px) rotateY(5deg);
     transform: perspective(500px) rotateX(5deg);
@@ -69,38 +66,28 @@ const Gallery = () => {
     getImages();
   }, []);
 
-  const lightGallery = useRef(null);
-  const onInit = useCallback((detail) => {
-    if (detail) {
-      lightGallery.current = detail.instance;
-    }
-  }, []);
-  useEffect(() => {
-    lightGallery.current?.refresh();
-  }, [images]);
   return (
     <StyledGallery>
       {loaded && images.length === 0 && <h6>Inga bilder här ännu.</h6>}
-      <div>
-        <LightGallery
-          className={'gallery'}
-          onInit={onInit}
-          speed={500}
-          plugins={[lgZoom, lgThumbnail, lgHash]}
-        >
+      <LightGallery speed={500} plugins={[Zoom, Thumbnail, Hash]}>
+        <Grid>
           {images.map((image) => (
-            <GalleryItem
-              data-src={image.src}
-              data-thumb={image.thumbnail}
-              data-download-url={image.download}
-              data-sub-html={'<div></div>'}
+            <LightGalleryItem
               key={image.id}
+              href={image.src}
+              item={{
+                src: image.src,
+                thumb: image.thumbnail,
+                alt: '',
+                downloadUrl: image.download,
+                download: image.id,
+              }}
             >
-              <Img alt={'img'} src={image.thumbnail} loading="lazy" />
-            </GalleryItem>
+              <Img alt="" src={image.thumbnail} loading="lazy" />
+            </LightGalleryItem>
           ))}
-        </LightGallery>
-      </div>
+        </Grid>
+      </LightGallery>
     </StyledGallery>
   );
 };

@@ -9,6 +9,9 @@ Wedding site, hosted on Cloudflare at https://bröllop.losell.nu.
 
 ## Development
 
+Next.js 16 (pages router, static export), React 19, styled-components 6. Needs Node 22
+and Yarn 4 via Corepack (`corepack enable`); the version is pinned in `package.json`.
+
 ```bash
 yarn dev       # Next.js dev server (gallery API not available)
 yarn preview   # export + wrangler dev, full site incl. gallery against a local R2 bucket

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 
 const CheckboxWrapper = styled.div`
@@ -31,8 +31,8 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
 `;
 
 const backgroundColor = css`
-  ${({ selected, theme }) => {
-    if (selected) {
+  ${({ $selected, theme }) => {
+    if ($selected) {
       return theme.colors.textColor;
     }
     return theme.colors.white;
@@ -40,8 +40,8 @@ const backgroundColor = css`
 `;
 
 const focusBorder = css`
-  ${({ selected, theme }) => {
-    if (selected) {
+  ${({ $selected, theme }) => {
+    if ($selected) {
       return theme.colors.textColor;
     }
     return theme.colors.grey500;
@@ -57,19 +57,17 @@ const StyledCheckbox = styled.div`
   place-items: center;
   transition: all 120ms;
   width: 20px;
-  ${HiddenCheckbox} {
-    :focus + & {
-      box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.textColor};
-    }
+  ${HiddenCheckbox}:focus-visible + & {
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.textColor};
   }
   ${Icon} {
-    visibility: ${(props) => (props.selected ? 'visible' : 'hidden')};
+    visibility: ${({ $selected }) => ($selected ? 'visible' : 'hidden')};
   }
 `;
 
 const WrapperLabel = styled.label`
   align-items: center;
-  cursor: 'pointer'
+  cursor: pointer;
   display: flex;
   &:hover ${StyledCheckbox} {
     box-shadow: 0 0 0 1px ${focusBorder};
@@ -92,18 +90,17 @@ const Checkbox = (props, ref) => {
 
   return (
     <div className={className}>
-      <WrapperLabel htmlFor={name} selected={checked}>
+      <WrapperLabel htmlFor={name} $selected={checked}>
         <CheckboxWrapper>
           <HiddenCheckbox
             id={name}
             name={name}
             checked={checked}
             onChange={changeValue}
-            h
             {...rest}
             type="checkbox"
           />
-          <StyledCheckbox selected={checked} ref={ref}>
+          <StyledCheckbox $selected={checked} ref={ref}>
             <Icon data-testid="icon" viewBox="0 0 24 24">
               <polyline points="20 6 9 17 4 12" />
             </Icon>

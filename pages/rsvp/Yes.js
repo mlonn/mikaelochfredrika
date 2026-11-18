@@ -96,7 +96,7 @@ const Yes = ({ done }) => {
         gäster men också för att kunna skicka ut mer information om något skulle
         ändras
       </p>
-      <Button loading={true} type="submit">
+      <Button disabled={loading} type="submit">
         <span>Skicka in mitt svar!</span>
       </Button>
     </Form>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import photo from '../../public/assets/news_photo.jpeg';
 import sune from '../../public/assets/sune.png';
 
-const Post = styled.p`
+const Post = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.textColor};
   padding: 12px;
   display: grid;
@@ -18,6 +18,11 @@ const Post = styled.p`
     width: 50%;
     float: right;
     margin-left: 12px;
+  }
+  .image-left img,
+  .image-right img {
+    width: 100%;
+    height: auto;
   }
   a {
     color: ${({ theme }) => theme.colors.darkGreen};
@@ -43,7 +48,7 @@ const Information = () => {
           <em>2022-06-07</em>
         </PostHeading>
         <Post>
-          <p>
+          <div>
             <b>
               Nu är det bara 1 månad kvar tills vi (Mikael & Fredrika) gifter
               oss! Och med er på plats för att ta del av vår stora dag!
@@ -95,7 +100,7 @@ const Information = () => {
             höst. Man kan swisha en summa till oss och markera det som{' '}
             <em>“bröllopspresent”</em>, t.ex. till Mikael på{' '}
             <a href="tel:0707290829">0707290829</a>
-          </p>
+          </div>
         </Post>
       </div>
       <div>
@@ -104,7 +109,7 @@ const Information = () => {
           <em>2022-05-06</em>
         </PostHeading>
         <Post>
-          <p>
+          <div>
             <div className="image-left">
               <Image src={photo} alt="" />
             </div>
@@ -177,7 +182,7 @@ const Information = () => {
             Annars ser vi bara väldigt mycket fram emot att snart få träffa er!
             Att få ha alla nära och kära på en plats! Om ni undrar något är ni
             mer än välkomna att höra av er till oss
-          </p>
+          </div>
         </Post>
       </div>
       <div>

@@ -11,4 +11,10 @@ export default styled.button`
   line-height: inherit;
   font-family: inherit;
   font-size: inherit;
+  display: inline-block;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
 `;

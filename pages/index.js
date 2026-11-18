@@ -25,9 +25,9 @@ const Home = () => {
         fina, vi vill ha allt!
         <br />
         <br />
-        <Link passHref href={'/gallery'}>
-          <Button>Bildgalleri</Button>
-        </Link>
+        <Button as={Link} href="/gallery">
+          Bildgalleri
+        </Button>
         <br />
         <br />
         Tack igen för en bra fest - vi är mer än nöjda!

@@ -42,6 +42,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
+    background: white;
     color: #605242;
     font-family: 'Mrs Eaves XL Serif Nar OT';
     font-size: 20px;
@@ -81,6 +82,8 @@ export const GlobalStyle = createGlobalStyle`
       font-weight: bold;
 
     }
+  }
+
   a {
     color: inherit;
     text-decoration: none;

@@ -66,9 +66,9 @@ const RSVP = () => {
           {attend ? (
             <>
               <h6>Kul att du vill komma, ses den 9:e juli!</h6>
-              <Link href="/details" passHref>
-                <Button>RSVP NU!</Button>
-              </Link>
+              <Button as={Link} href="/details">
+                RSVP NU!
+              </Button>
             </>
           ) : (
             <h6>Synd att du inte kan komma</h6>

@@ -1,5 +1,4 @@
 import { Slide, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProvider } from 'styled-components';
 import Page from '../components/Page';
 
@@ -11,7 +10,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <link rel="stylesheet" href="https://use.typekit.net/iaz7vbu.css" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"

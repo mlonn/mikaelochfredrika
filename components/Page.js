@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import ScaleText from 'react-scale-text';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import logo from '../public/assets/MF_logo.png';
 import home from '../public/assets/MF_home.jpg';
 import wij from '../public/assets/Wij_Page.png';
@@ -41,7 +40,7 @@ const ImageWrapper = styled.div`
   position: relative;
   place-items: end;
   min-height: 350px;
-  max-height: max-height: calc(100vh - 298px);
+  max-height: calc(100vh - 298px);
 `;
 
 const ImageContainer = styled.div`
@@ -208,39 +207,6 @@ const Header = styled.div`
   text-align: center;
 `;
 
-const MenuButton = styled.button`
-  display: none;
-  background: ${({ theme }) => `${theme.colors.textColor}25`};
-  background: transparent;
-  padding: 0;
-  border: none;
-  right: 6px;
-
-  .bar1,
-  .bar2,
-  .bar3 {
-    background-color: #333;
-    width: 35px;
-    height: 5px;
-    margin: 6px 0;
-    transition: 0.4s;
-  }
-
-  @media (max-width: 767px) {
-    display: block;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  width: 100vw;
-  display: flex;
-  justify-content: end;
-  padding: 5px;
-  background: ${({ theme }) => `${theme.colors.textColor}25`};
-  z-index: 100;
-  right: 0;
-`;
-
 const PageHeader = styled.div`
   position: relative;
   display: grid;
@@ -283,10 +249,17 @@ const SubHeading = styled.h2`
   color: ${({ theme }) => theme.colors.brown};
 `;
 
-const NavLink = styled.a`
-  font-weight: ${({ active }) => (active ? 'bold' : 'normal')};
-  text-decoration: ${({ active }) => (active ? 'underline' : 'none')};
+const NavLink = styled(Link)`
+  font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
+  text-decoration: ${({ $active }) => ($active ? 'underline' : 'none')};
 `;
+
+const NAV_ITEMS = [
+  { href: '/', label: 'HEM' },
+  { href: '/details', label: 'DETALJER' },
+  { href: '/information', label: 'INFORMATION' },
+  { href: '/gallery', label: 'BILDGALLERI' },
+];
 
 const LeftImage = styled.div`
   @media (max-width: 1220px) {
@@ -339,25 +312,7 @@ const MFImage = styled.div`
 `;
 const Page = ({ children }) => {
   const router = useRouter();
-  const wedding = new Date('2022-07-09');
-  const now = new Date();
-  const [sideImage, setSideImage] = useState(home);
-
-  // To calculate the time difference of two dates
-  const time = wedding.getTime() - now.getTime();
-
-  // To calculate the no. of days between two dates
-  const days = Math.ceil(time / (1000 * 3600 * 24));
-
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    if (router.pathname === '/details') {
-      setSideImage(wij);
-    } else {
-      setSideImage(home);
-    }
-  }, [router.pathname]);
+  const sideImage = router.pathname === '/details' ? wij : home;
   return (
     <PageWrapper>
       <Head>
@@ -370,18 +325,16 @@ const Page = ({ children }) => {
         <PageHeader>
           <RightMobileImage>
             <Image
-              objectPosition="right top"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain', objectPosition: 'right top' }}
               src={hmright}
               alt=""
             />
           </RightMobileImage>
           <RightImage>
             <Image
-              objectPosition="right top"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain', objectPosition: 'right top' }}
               src={hright}
               alt=""
             />
@@ -389,30 +342,21 @@ const Page = ({ children }) => {
           <CenterContent>
             <h1>Mikael och Fredrika</h1>
             <MFImage>
-              <Image
-                object-fit="contain"
-                width={94}
-                height={94}
-                layout="fixed"
-                src={logo}
-                alt=""
-              />
+              <Image width={94} height={94} src={logo} alt="" />
             </MFImage>
           </CenterContent>
           <LeftImage>
             <Image
-              objectPosition="left top"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain', objectPosition: 'left top' }}
               src={hleft}
               alt=""
             />
           </LeftImage>
           <LeftMobileImage>
             <Image
-              objectPosition="left top"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain', objectPosition: 'left top' }}
               src={hmleft}
               alt=""
             />
@@ -420,54 +364,19 @@ const Page = ({ children }) => {
           <SubHeading>2022-07-09 | Wij Trädgårdar, Ockelbo</SubHeading>
         </PageHeader>
         <Wrapper>
-          <Nav open={open}>
+          <Nav>
             <input id="menu-toggle" type="checkbox" />
             <label className="menu-button-container" htmlFor="menu-toggle">
               <div className="menu-button"></div>
             </label>
             <ul className="menu">
-              <li>
-                <Link passHref href="/">
-                  <NavLink
-                    active={router.pathname === '/'}
-                    onClick={() => setOpen(false)}
-                  >
-                    HEM
+              {NAV_ITEMS.map(({ href, label }) => (
+                <li key={href}>
+                  <NavLink href={href} $active={router.pathname === href}>
+                    {label}
                   </NavLink>
-                </Link>
-              </li>
-
-              <li>
-                <Link passHref href="/details">
-                  <NavLink
-                    active={router.pathname === '/details'}
-                    onClick={() => setOpen(false)}
-                  >
-                    DETALJER
-                  </NavLink>
-                </Link>
-              </li>
-              <li>
-                <Link passHref href="/information">
-                  <NavLink
-                    active={router.pathname === '/information'}
-                    onClick={() => setOpen(false)}
-                  >
-                    INFORMATION
-                  </NavLink>
-                </Link>
-              </li>
-
-              <li>
-                <Link href="/gallery">
-                  <NavLink
-                    active={router.pathname === '/gallery'}
-                    onClick={() => setOpen(false)}
-                  >
-                    BILDGALLERI
-                  </NavLink>
-                </Link>
-              </li>
+                </li>
+              ))}
             </ul>
           </Nav>
         </Wrapper>
@@ -480,12 +389,11 @@ const Page = ({ children }) => {
           <ImageWrapper>
             <ImageContainer>
               <Image
-                layout="fill"
-                objectFit="cover"
-                objectPosition="30% 20%"
+                fill
+                style={{ objectFit: 'cover', objectPosition: '30% 20%' }}
                 src={sideImage}
                 alt=""
-              ></Image>
+              />
             </ImageContainer>
           </ImageWrapper>
         </ContentWrapper>
